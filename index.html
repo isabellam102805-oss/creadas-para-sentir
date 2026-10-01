@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="docTitle">Taller Devocional - Creadas para Sentir</title>
+    <link rel="icon" type="image/png" id="faviconApp" href="https://i.pinimg.com/736x/87/42/bb/8742bbf06294d1f2b5a153bd28b758da.jpg">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Shrikhand&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-crema: #F7F3EE;
+            --terracota: #8C3A1D;
+            --terracota-dark: #6E2B12;
+            --texto-oscuro: #3D2D27;
+        }
+
+        body { background-color: var(--bg-crema); color: var(--texto-oscuro); font-family: 'Montserrat', sans-serif; }
+        .font-groovy { font-family: 'Shrikhand', cursive; }
+        .font-handwriting { font-family: 'Caveat', cursive; }
+        .font-serif-title { font-family: 'Playfair Display', serif; }
+
+        .page-container {
+            background: #FAF8F5;
+            box-shadow: 0 10px 30px rgba(100, 60, 40, 0.08);
+            border: 1px solid #EAE1D7;
+            position: relative;
+        }
+
+        .btn-terracota {
+            background-color: var(--terracota);
+            color: white;
+            transition: all 0.2s ease;
+        }
+        .btn-terracota:hover { background-color: var(--terracota-dark); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- BARRA SUPERIOR DE ENCABEZADO -->
+    <header class="bg-[#8C3A1D] text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <img id="logoApp" src="https://i.pinimg.com/736x/87/42/bb/8742bbf06294d1f2b5a153bd28b758da.jpg" alt="Logo Taller" class="w-10 h-10 rounded-full object-cover border-2 border-white/50">
+                <div>
+                    <h1 id="headerTitulo" class="font-groovy text-xl sm:text-2xl leading-none">REUNIÓN DE MUJERES</h1>
+                    <p id="headerSubtitulo" class="font-handwriting text-base text-[#E8D5C8] leading-none mt-1">Creadas para sentir</p>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-2">
+                <button onclick="switchView('participante')" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-white text-[#8C3A1D] hover:bg-[#F7F3EE]">
+                    <i class="fa-solid fa-book-open mr-1"></i> Devocional
+                </button>
+                <button onclick="switchView('muro')" class="px-3 py-1.5 rounded-full text-xs font-semibold bg-[#6E2B12] text-white hover:bg-white hover:text-[#8C3A1D]">
+                    <i class="fa-solid fa-comments mr-1"></i> Muro
+                </button>
+                <button onclick="solicitarAccesoAdmin()" title="Acceso Administradora" class="px-2.5 py-1.5 rounded-full text-xs bg-amber-600 text-white hover:bg-amber-500 shadow">
+                    <i class="fa-solid fa-lock"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 py-6">
+
+        <!-- ================= 1. VISTA DEVOCIONAL ================= -->
+        <div id="viewParticipante" class="space-y-6">
+            
+            <div class="flex flex-col sm:flex-row items-center justify-between bg-white p-4 rounded-xl border border-[#EAE1D7] shadow-sm gap-3">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-regular fa-calendar-check text-[#8C3A1D] text-lg"></i>
+                    <span id="lblSelectorDia" class="font-bold text-sm text-[#3D2D27]">Seleccionar Devocional:</span>
+                </div>
+                <select id="daySelector" onchange="loadDayContent(this.value)" class="w-full sm:w-auto bg-[#F7F3EE] border border-[#C4A792] text-[#8C3A1D] font-bold text-sm rounded-lg px-4 py-2 focus:outline-none">
+                </select>
+            </div>
+
+            <!-- HOJA DEL DEVOCIONAL -->
+            <div class="page-container rounded-2xl p-6 sm:p-10 text-center relative">
+                <div class="max-w-2xl mx-auto">
+                    
+                    <p id="dispUbicacion" class="text-xs font-bold text-[#8C3A1D] uppercase tracking-widest mb-1">CALLE ZIGIA 28, MADRID</p>
+                    <p id="dispFecha" class="text-xs font-semibold text-gray-500 mb-2">Lunes, 05 de Octubre</p>
+
+                    <h2 id="dispTitulo" class="font-groovy text-3xl sm:text-5xl text-[#8C3A1D] my-2">REUNIÓN DE MUJERES</h2>
+                    <p id="dispSubtitulo" class="font-handwriting text-2xl text-[#8C3A1D] mb-4">Creadas para sentir</p>
+
+                    <div class="inline-block bg-[#E8D5C8]/50 px-4 py-1.5 rounded-full mb-6 border border-[#C4A792]/40">
+                        <span id="dispNombreDia" class="font-bold text-sm text-[#8C3A1D]">Día 1: Creadas para sentir</span>
+                    </div>
+
+                    <!-- CAJA DE AUDIO -->
+                    <div id="dispAudioContainer" class="bg-[#E8D5C8]/40 border border-[#C4A792] p-4 rounded-xl my-6 text-left flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-circle-play text-3xl text-[#8C3A1D]"></i>
+                            <div>
+                                <h4 id="dispAudioTitulo" class="font-bold text-sm text-[#3D2D27]">Alabanza del Día</h4>
+                                <p id="dispAudioSub" class="text-xs text-[#8C3A1D]">Haz clic para escuchar la canción en YouTube / Spotify</p>
+                            </div>
+                        </div>
+                        <a id="dispAudioLink" href="#" target="_blank" class="btn-terracota px-4 py-2 rounded-lg text-xs font-semibold flex items-center gap-1">
+                            <i class="fa-solid fa-headphones"></i> Escuchar
+                        </a>
+                    </div>
+
+                    <!-- VERSÍCULO CLAVE -->
+                    <div class="bg-[#FAF0E6] border-l-4 border-[#8C3A1D] p-5 my-6 rounded-r-xl text-left">
+                        <p id="dispVersiculo" class="font-serif-title italic text-lg sm:text-xl">"Con amor eterno te he amado; por tanto, te prolongué mi misericordia."</p>
+                        <p id="dispCita" class="text-right text-xs font-bold text-[#8C3A1D] mt-2">— Jeremías 31:3</p>
+                    </div>
+
+                    <!-- REFLEXIÓN DEL DÍA -->
+                    <div class="text-left my-8 space-y-4">
+                        <h3 id="dispTituloReflexion" class="font-bold text-[#8C3A1D] text-lg flex items-center gap-2">
+                            <i class="fa-solid fa-book-open-reader"></i> Reflexión
+                        </h3>
+                        <div id="dispReflexion" class="text-sm sm:text-base leading-relaxed whitespace-pre-line text-[#3D2D27]">
+                            Bienvenida a este tiempo especial.
+                        </div>
+                    </div>
+
+                    <!-- ORACIÓN DEL DÍA -->
+                    <div class="bg-[#F4EBE1] p-5 rounded-xl text-left border border-[#E0D2C3] my-6">
+                        <h4 id="dispTituloOracion" class="font-bold text-xs uppercase text-[#8C3A1D] mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-hands-praying"></i> Oración del Día
+                        </h4>
+                        <p id="dispOracion" class="font-handwriting text-xl text-[#3D2D27]"></p>
+                    </div>
+
+                    <!-- APLICACIÓN PRÁCTICA -->
+                    <div id="dispPracticaContainer" class="bg-[#FAF0E6] border-l-4 border-[#8C3A1D] p-5 rounded-r-xl text-left my-6 hidden">
+                        <h4 id="dispTituloPractica" class="font-bold text-xs uppercase text-[#8C3A1D] mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-shoe-prints"></i> Aplicación Práctica del Día
+                        </h4>
+                        <div id="dispPractica" class="text-sm text-[#3D2D27] leading-relaxed whitespace-pre-line"></div>
+                    </div>
+
+                    <!-- MANOS A LA OBRA (JOURNALING) -->
+                    <div class="my-8 text-left space-y-6 bg-white p-6 rounded-xl border border-[#EAE1D7] shadow-sm">
+                        <h3 id="dispTituloJournaling" class="font-bold text-[#8C3A1D] text-lg border-b pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-feather-pointed"></i> Manos a la obra (journaling)
+                        </h3>
+
+                        <p id="dispJournalingDesc" class="text-xs text-gray-600 italic bg-[#F7F3EE] p-3 rounded-lg border border-[#EAE1D7]">
+                            Tómate unos minutos en silencio para reflexionar y escribir tus respuestas.
+                        </p>
+
+                        <div id="dynamicQuestionsList" class="space-y-4"></div>
+
+                        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+                            <button onclick="saveAndSendToSheets()" id="btnGuardarResp" class="flex-1 btn-terracota py-3 rounded-lg font-bold text-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> Enviar Mis Respuestas
+                            </button>
+                            <button onclick="downloadAnswers()" id="btnDescargarResp" class="bg-[#6E2B12] text-white px-4 py-3 rounded-lg font-bold text-sm hover:bg-[#8C3A1D] flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-download"></i> Descargar Copia
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PIE DE PÁGINA -->
+                    <div class="mt-12 pt-6 border-t border-[#8C3A1D]/20">
+                        <p id="dispPieIzquierda" class="font-groovy text-lg text-[#8C3A1D]">TALLER DEVOCIONAL</p>
+                        <p id="dispPieDerecha" class="font-handwriting text-xl text-[#8C3A1D]">Creadas con amor</p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= 2. MURO COMUNITARIO ================= -->
+        <div id="viewMuro" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-[#EAE1D7] text-center">
+                <i class="fa-solid fa-heart text-3xl text-[#8C3A1D] mb-2"></i>
+                <h2 id="muroTituloDisp" class="font-groovy text-2xl text-[#8C3A1D]">Muro de Bendiciones</h2>
+                <p id="muroSubtituloDisp" class="text-xs text-gray-600">Deja un mensaje o petición para el grupo de mujeres</p>
+                <div class="mt-4 max-w-lg mx-auto bg-[#F7F3EE] p-4 rounded-xl space-y-2">
+                    <input type="text" id="muroNombre" placeholder="Tu nombre" class="w-full p-2 text-sm rounded-lg border">
+                    <textarea id="muroMensaje" placeholder="Escribe tu mensaje..." class="w-full p-2 text-sm rounded-lg border"></textarea>
+                    <button onclick="addMuroPost()" class="w-full btn-terracota py-2 rounded-lg text-xs font-bold">Publicar en el Muro</button>
+                </div>
+            </div>
+            <div id="muroPostsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+        </div>
+
+        <!-- ================= 3. PANEL DE ADMINISTRACIÓN TOTAL ================= -->
+        <div id="viewAdmin" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-2xl border border-[#EAE1D7] shadow-sm space-y-6">
+                
+                <div class="flex items-center justify-between border-b pb-3">
+                    <h2 class="font-bold text-xl text-[#8C3A1D]"><i class="fa-solid fa-sliders mr-2"></i>Panel de Control del Taller</h2>
+                    <button onclick="createNewDay()" class="btn-terracota px-4 py-2 rounded-lg text-xs font-bold">+ Crear Nuevo Devocional</button>
+                </div>
+
+                <!-- ENLACE DE GOOGLE SHEETS -->
+                <div class="bg-amber-50 p-4 rounded-xl border border-amber-200 space-y-2">
+                    <h3 class="font-bold text-xs text-amber-900 flex items-center gap-2">
+                        <i class="fa-solid fa-table"></i> Enlace de Google Sheets (Google Apps Script URL)
+                    </h3>
+                    <p class="text-xs text-amber-800">Pega aquí la URL desplegada de Google Apps Script para sincronizar en tiempo real:</p>
+                    <input type="text" id="editSheetsUrl" class="w-full p-2 text-xs border rounded-lg bg-white" placeholder="https://script.google.com/macros/s/.../exec">
+                </div>
+
+                <!-- ENCABEZADO Y TÍTULOS GENERALES EDITABLES -->
+                <div class="bg-[#F7F3EE] p-4 rounded-xl border border-[#EAE1D7] space-y-3">
+                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-heading mr-1"></i> 1. Títulos Generales de la Barra Superior y Hoja</h3>
+                    <div>
+                        <label class="block text-xs font-bold mb-1">URL de la Imagen del Logo (Pinterest/Web):</label>
+                        <input type="text" id="editLogoUrl" class="w-full p-2 text-xs border rounded-lg" placeholder="https://i.pinimg.com/...">
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título Principal (ej: REUNIÓN DE MUJERES):</label>
+                            <input type="text" id="editHeaderTitulo" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Subtítulo / Lema (ej: Creadas para sentir):</label>
+                            <input type="text" id="editHeaderSubtitulo" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EDITOR DE TÍTULOS DE SECCIONES -->
+                <div class="bg-[#F7F3EE] p-4 rounded-xl border border-[#EAE1D7] space-y-3">
+                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-tags mr-1"></i> 2. Editar Enunciados de Secciones</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título Sección Reflexión:</label>
+                            <input type="text" id="editTituloReflexion" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título Sección Oración:</label>
+                            <input type="text" id="editTituloOracion" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título Sección Práctica:</label>
+                            <input type="text" id="editTituloPractica" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título Sección Journaling:</label>
+                            <input type="text" id="editTituloJournaling" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Texto Botón Guardar/Enviar:</label>
+                            <input type="text" id="editBtnGuardar" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Texto Botón Descargar:</label>
+                            <input type="text" id="editBtnDescargar" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EDITOR DEL DEVOCIONAL SELECCIONADO -->
+                <div class="bg-[#F7F3EE] p-4 rounded-xl border border-[#EAE1D7] space-y-4">
+                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-pen-to-square mr-1"></i> 3. Editar Devocional Actual</h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Nombre / Título del Día (ej: Día 1: Creadas para sentir):</label>
+                            <input type="text" id="editNombreDia" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Ubicación / Dirección Superior:</label>
+                            <input type="text" id="editUbicacion" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Fecha del Devocional:</label>
+                            <input type="text" id="editFecha" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título de Audio / Canción:</label>
+                            <input type="text" id="editAudioTitulo" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-1">Enlace de Audio / YouTube / Spotify / SoundCloud:</label>
+                        <input type="text" id="editAudioLink" class="w-full p-2 text-xs border rounded-lg" placeholder="https://youtube.com/...">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="sm:col-span-2">
+                            <label class="block text-xs font-bold mb-1">Versículo Clave:</label>
+                            <input type="text" id="editVersiculo" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Cita Bíblica:</label>
+                            <input type="text" id="editCita" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-1">Lectura / Reflexión Principal:</label>
+                        <textarea id="editReflexion" rows="5" class="w-full p-2 text-xs border rounded-lg"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-1">Oración del Día:</label>
+                        <textarea id="editOracion" rows="3" class="w-full p-2 text-xs border rounded-lg"></textarea>
+                    </div>
+
+                    <div class="border-t pt-3 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <label class="text-xs font-bold text-[#8C3A1D]">¿Incluir Sección de Aplicación Práctica / Reto?</label>
+                            <input type="checkbox" id="editCheckPractica" onchange="togglePracticaEdit(this.checked)" class="w-4 h-4 accent-[#8C3A1D]">
+                        </div>
+                        <div id="editPracticaBox" class="hidden">
+                            <textarea id="editPracticaText" rows="3" class="w-full p-2 text-xs border rounded-lg" placeholder="Escribe la aplicación práctica o reto para hoy..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="border-t pt-3 space-y-2">
+                        <label class="block text-xs font-bold text-[#8C3A1D]">Instrucción de Journaling:</label>
+                        <input type="text" id="editJournalingDesc" class="w-full p-2 text-xs border rounded-lg">
+                    </div>
+
+                    <div class="border-t pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Pie de Página Izquierda:</label>
+                            <input type="text" id="editPieIzquierda" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Pie de Página Derecha:</label>
+                            <input type="text" id="editPieDerecha" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PREGUNTAS DINÁMICAS -->
+                <div class="bg-[#F7F3EE] p-4 rounded-xl border border-[#EAE1D7] space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-list-check mr-1"></i> 4. Preguntas de Journaling</h3>
+                        <button onclick="addAdminQuestion()" class="btn-terracota px-3 py-1.5 rounded-lg text-xs font-bold">+ Agregar Pregunta</button>
+                    </div>
+                    <div id="adminQuestionsList" class="space-y-2"></div>
+                </div>
+
+                <!-- EDICIÓN DEL MURO COMUNITARIO -->
+                <div class="bg-[#F7F3EE] p-4 rounded-xl border border-[#EAE1D7] space-y-3">
+                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-comments mr-1"></i> 5. Configurar Muro Comunitario</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título del Muro:</label>
+                            <input type="text" id="editMuroTitulo" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Subtítulo del Muro:</label>
+                            <input type="text" id="editMuroSubtitulo" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="saveAdminChanges()" class="w-full btn-terracota py-3 rounded-lg font-bold text-sm shadow-md">
+                    <i class="fa-solid fa-floppy-disk mr-2"></i> Guardar Todos los Cambios
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        const googleSheetsUrl = "https://script.google.com/macros/s/AKfycbxr8iny2uVz-QSrN4LnMSVBjjHwt7l3Odi--QduYBnnNXDKUgPxr7kncgEf4zc8ESuLtg/exec";
+        const CLAVE_ADMIN = "1234";
+
+        let appData = JSON.parse(localStorage.getItem('tallerData3Semanas')) || {
+            googleSheetsUrl: googleSheetsUrl,
+            logoSrc: "https://i.pinimg.com/736x/87/42/bb/8742bbf06294d1f2b5a153bd28b758da.jpg",
+            headerTitulo: "REUNIÓN DE MUJERES",
+            headerSubtitulo: "Creadas para sentir",
+            tituloReflexion: "Reflexión",
+            tituloOracion: "Oración del Día",
+            tituloPractica: "Aplicación Práctica del Día",
+            tituloJournaling: "Manos a la obra (journaling)",
+            btnGuardarText: "Enviar Mis Respuestas",
+            btnDescargarText: "Descargar Copia",
+            muroTitulo: "Muro de Bendiciones",
+            muroSubtitulo: "Deja un mensaje o petición para el grupo de mujeres",
+            muroPosts: [],
+            currentDayIndex: 0,
+            days: [
+                {
+                    nombreDia: "Día 1: Creadas para sentir",
+                    fecha: "Lunes, 05 de Octubre",
+                    ubicacion: "CALLE ZIGIA 28, MADRID",
+                    titulo: "REUNIÓN DE MUJERES",
+                    subtitulo: "Creadas para sentir",
+                    audioTitulo: "Alabanza del Día 1",
+                    audioLink: "https://youtube.com",
+                    versiculo: "Con amor eterno te he amado; por tanto, te prolongué mi misericordia.",
+                    cita: "Jeremías 31:3",
+                    reflexion: "Bienvenida al Módulo 1. Nuestras emociones no son un defecto que debamos arreglar, son señales que Dios diseñó para que las pastoreemos...",
+                    oracion: "Señor, abre mi corazón durante este taller para entender tu propósito en mi vida.",
+                    mostrarPractica: true,
+                    practica: "Identifica hoy 3 emociones que hayas sentido durante la mañana y nómbralas en oración delante de Dios.",
+                    journalingDesc: "Tómate unos minutos en silencio para reflexionar y escribir tus respuestas de hoy.",
+                    pieIzquierda: "TALLER DEVOCIONAL",
+                    pieDerecha: "Creadas con amor",
+                    questions: [
+                        "¿Qué te enseña Dios hoy a través de esta lectura?",
+                        "¿Cuál es tu petición de oración especial para hoy?"
+                    ]
+                }
+            ]
+        };
+
+        let currentActiveDay = 0;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDaySelector();
+            loadDayContent(0);
+            fetchDataFromSheets();
+        });
+
+        async function fetchDataFromSheets() {
+            const url = appData.googleSheetsUrl || googleSheetsUrl;
+            if (!url) return;
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                if (data.config && Object.keys(data.config).length > 0) {
+                    appData = Object.assign(appData, data.config);
+                    renderDaySelector();
+                    loadDayContent(currentActiveDay);
+                }
+                if (data.muro) {
+                    appData.muroPosts = data.muro.reverse();
+                    renderMuroPosts();
+                }
+            } catch (e) {
+                console.log("Cargando datos locales.");
+            }
+        }
+
+        function renderDaySelector() {
+            const selector = document.getElementById('daySelector');
+            if(!selector) return;
+            selector.innerHTML = '';
+            appData.days.forEach((day, index) => {
+                const opt = document.createElement('option');
+                opt.value = index;
+                opt.textContent = day.nombreDia || `Día ${index + 1}`;
+                selector.appendChild(opt);
+            });
+        }
+
+        function loadDayContent(index) {
+            currentActiveDay = parseInt(index);
+            const data = appData.days[currentActiveDay];
+
+            const headerT = appData.headerTitulo || "REUNIÓN DE MUJERES";
+            const headerS = appData.headerSubtitulo || "Creadas para sentir";
+
+            if(appData.logoSrc) {
+                document.getElementById('logoApp').src = appData.logoSrc;
+                document.getElementById('faviconApp').href = appData.logoSrc;
+            }
+
+            document.getElementById('headerTitulo').textContent = headerT;
+            document.getElementById('headerSubtitulo').textContent = headerS;
+            document.getElementById('dispTitulo').textContent = data.titulo || headerT;
+            document.getElementById('dispSubtitulo').textContent = data.subtitulo || headerS;
+
+            document.getElementById('muroTituloDisp').textContent = appData.muroTitulo || "Muro de Bendiciones";
+            document.getElementById('muroSubtituloDisp').textContent = appData.muroSubtitulo || "Deja un mensaje o petición para el grupo de mujeres";
+
+            document.getElementById('dispTituloReflexion').innerHTML = `<i class="fa-solid fa-book-open-reader"></i> ${appData.tituloReflexion || 'Reflexión'}`;
+            document.getElementById('dispTituloOracion').innerHTML = `<i class="fa-solid fa-hands-praying"></i> ${appData.tituloOracion || 'Oración del Día'}`;
+            document.getElementById('dispTituloPractica').innerHTML = `<i class="fa-solid fa-shoe-prints"></i> ${appData.tituloPractica || 'Aplicación Práctica del Día'}`;
+            document.getElementById('dispTituloJournaling').innerHTML = `<i class="fa-solid fa-feather-pointed"></i> ${appData.tituloJournaling || 'Manos a la obra (journaling)'}`;
+
+            document.getElementById('btnGuardarResp').innerHTML = `<i class="fa-solid fa-paper-plane"></i> ${appData.btnGuardarText || 'Enviar Mis Respuestas'}`;
+            document.getElementById('btnDescargarResp').innerHTML = `<i class="fa-solid fa-download"></i> ${appData.btnDescargarText || 'Descargar Copia'}`;
+
+            document.getElementById('dispNombreDia').textContent = data.nombreDia;
+            document.getElementById('dispFecha').textContent = data.fecha;
+            document.getElementById('dispUbicacion').textContent = data.ubicacion || "CALLE ZIGIA 28, MADRID";
+
+            document.getElementById('dispAudioTitulo').textContent = data.audioTitulo;
+            document.getElementById('dispAudioLink').href = data.audioLink || "#";
+
+            document.getElementById('dispVersiculo').textContent = `"${data.versiculo}"`;
+            document.getElementById('dispCita').textContent = `— ${data.cita}`;
+            document.getElementById('dispReflexion').textContent = data.reflexion;
+            document.getElementById('dispOracion').textContent = data.oracion;
+
+            const practicaBox = document.getElementById('dispPracticaContainer');
+            if (data.mostrarPractica && data.practica) {
+                practicaBox.classList.remove('hidden');
+                document.getElementById('dispPractica').textContent = data.practica;
+            } else {
+                practicaBox.classList.add('hidden');
+            }
+
+            document.getElementById('dispJournalingDesc').textContent = data.journalingDesc || "Tómate unos minutos en silencio para reflexionar.";
+            document.getElementById('dispPieIzquierda').textContent = data.pieIzquierda || "TALLER DEVOCIONAL";
+            document.getElementById('dispPieDerecha').textContent = data.pieDerecha || "Creadas con amor";
+
+            renderQuestions();
+            populateAdminForm();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('dynamicQuestionsList');
+            container.innerHTML = '';
+            const day = appData.days[currentActiveDay];
+            const savedAns = JSON.parse(localStorage.getItem(`ans_day_${currentActiveDay}`)) || {};
+
+            day.questions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.innerHTML = `
+                    <label class="block font-semibold text-sm mb-1 text-[#3D2D27]">${idx + 1}. ${q}</label>
+                    <textarea id="ans_${idx}" rows="3" class="w-full p-3 text-sm bg-[#F7F3EE] border border-[#C4A792]/50 rounded-lg focus:outline-none focus:border-[#8C3A1D]" placeholder="Escribe tu respuesta aquí...">${savedAns[idx] || ''}</textarea>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function populateAdminForm() {
+            const day = appData.days[currentActiveDay];
+
+            document.getElementById('editSheetsUrl').value = appData.googleSheetsUrl || googleSheetsUrl;
+            document.getElementById('editLogoUrl').value = appData.logoSrc || "https://i.pinimg.com/736x/87/42/bb/8742bbf06294d1f2b5a153bd28b758da.jpg";
+            document.getElementById('editHeaderTitulo').value = appData.headerTitulo || "REUNIÓN DE MUJERES";
+            document.getElementById('editHeaderSubtitulo').value = appData.headerSubtitulo || "Creadas para sentir";
+
+            document.getElementById('editTituloReflexion').value = appData.tituloReflexion || "Reflexión";
+            document.getElementById('editTituloOracion').value = appData.tituloOracion || "Oración del Día";
+            document.getElementById('editTituloPractica').value = appData.tituloPractica || "Aplicación Práctica del Día";
+            document.getElementById('editTituloJournaling').value = appData.tituloJournaling || "Manos a la obra (journaling)";
+            document.getElementById('editBtnGuardar').value = appData.btnGuardarText || "Enviar Mis Respuestas";
+            document.getElementById('editBtnDescargar').value = appData.btnDescargarText || "Descargar Copia";
+
+            document.getElementById('editNombreDia').value = day.nombreDia || "";
+            document.getElementById('editUbicacion').value = day.ubicacion || "";
+            document.getElementById('editFecha').value = day.fecha || "";
+            document.getElementById('editAudioTitulo').value = day.audioTitulo || "";
+            document.getElementById('editAudioLink').value = day.audioLink || "";
+            document.getElementById('editVersiculo').value = day.versiculo || "";
+            document.getElementById('editCita').value = day.cita || "";
+            document.getElementById('editReflexion').value = day.reflexion || "";
+            document.getElementById('editOracion').value = day.oracion || "";
+
+            document.getElementById('editCheckPractica').checked = !!day.mostrarPractica;
+            togglePracticaEdit(!!day.mostrarPractica);
+            document.getElementById('editPracticaText').value = day.practica || "";
+            document.getElementById('editJournalingDesc').value = day.journalingDesc || "";
+            document.getElementById('editPieIzquierda').value = day.pieIzquierda || "";
+            document.getElementById('editPieDerecha').value = day.pieDerecha || "";
+
+            document.getElementById('editMuroTitulo').value = appData.muroTitulo || "Muro de Bendiciones";
+            document.getElementById('editMuroSubtitulo').value = appData.muroSubtitulo || "Deja un mensaje o petición para el grupo de mujeres";
+
+            renderAdminQuestionsList();
+        }
+
+        function renderAdminQuestionsList() {
+            const list = document.getElementById('adminQuestionsList');
+            list.innerHTML = '';
+            const day = appData.days[currentActiveDay];
+
+            day.questions.forEach((q, idx) => {
+                const div = document.createElement('div');
+                div.className = "flex items-center gap-2";
+                div.innerHTML = `
+                    <input type="text" id="q_input_${idx}" value="${q}" class="flex-1 p-2 text-xs border rounded-lg">
+                    <button onclick="removeAdminQuestion(${idx})" class="bg-red-100 text-red-600 p-2 rounded-lg text-xs font-bold hover:bg-red-200">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function addAdminQuestion() {
+            appData.days[currentActiveDay].questions.push("Nueva Pregunta");
+            renderAdminQuestionsList();
+        }
+
+        function removeAdminQuestion(idx) {
+            appData.days[currentActiveDay].questions.splice(idx, 1);
+            renderAdminQuestionsList();
+        }
+
+        function togglePracticaEdit(checked) {
+            document.getElementById('editPracticaBox').classList.toggle('hidden', !checked);
+        }
+
+        function createNewDay() {
+            const newIndex = appData.days.length + 1;
+            const newDayObj = {
+                nombreDia: `Día ${newIndex}: Nuevo Devocional`,
+                fecha: "Fecha pendiente",
+                ubicacion: "CALLE ZIGIA 28, MADRID",
+                titulo: appData.headerTitulo || "REUNIÓN DE MUJERES",
+                subtitulo: appData.headerSubtitulo || "Creadas para sentir",
+                audioTitulo: `Alabanza del Día ${newIndex}`,
+                audioLink: "https://youtube.com",
+                versiculo: "Escribe aquí el versículo del día.",
+                cita: "Cita Bíblica",
+                reflexion: "Escribe aquí la reflexión principal...",
+                oracion: "Escribe aquí la oración...",
+                mostrarPractica: false,
+                practica: "",
+                journalingDesc: "Tómate unos minutos en silencio para reflexionar.",
+                pieIzquierda: "TALLER DEVOCIONAL",
+                pieDerecha: "Creadas con amor",
+                questions: ["¿Qué te enseña Dios hoy?"]
+            };
+
+            appData.days.push(newDayObj);
+            renderDaySelector();
+            document.getElementById('daySelector').value = appData.days.length - 1;
+            loadDayContent(appData.days.length - 1);
+            alert(`¡Día ${newIndex} creado con éxito! Puedes editar sus campos ahora mismo.`);
+        }
+
+        async function saveAdminChanges() {
+            const day = appData.days[currentActiveDay];
+
+            appData.googleSheetsUrl = document.getElementById('editSheetsUrl').value.trim();
+            appData.logoSrc = document.getElementById('editLogoUrl').value.trim();
+            appData.headerTitulo = document.getElementById('editHeaderTitulo').value.trim();
+            appData.headerSubtitulo = document.getElementById('editHeaderSubtitulo').value.trim();
+
+            appData.tituloReflexion = document.getElementById('editTituloReflexion').value.trim();
+            appData.tituloOracion = document.getElementById('editTituloOracion').value.trim();
+            appData.tituloPractica = document.getElementById('editTituloPractica').value.trim();
+            appData.tituloJournaling = document.getElementById('editTituloJournaling').value.trim();
+            appData.btnGuardarText = document.getElementById('editBtnGuardar').value.trim();
+            appData.btnDescargarText = document.getElementById('editBtnDescargar').value.trim();
+
+            day.nombreDia = document.getElementById('editNombreDia').value.trim();
+            day.ubicacion = document.getElementById('editUbicacion').value.trim();
+            day.fecha = document.getElementById('editFecha').value.trim();
+            day.audioTitulo = document.getElementById('editAudioTitulo').value.trim();
+            day.audioLink = document.getElementById('editAudioLink').value.trim();
+            day.versiculo = document.getElementById('editVersiculo').value.trim();
+            day.cita = document.getElementById('editCita').value.trim();
+            day.reflexion = document.getElementById('editReflexion').value.trim();
+            day.oracion = document.getElementById('editOracion').value.trim();
+
+            day.mostrarPractica = document.getElementById('editCheckPractica').checked;
+            day.practica = document.getElementById('editPracticaText').value.trim();
+            day.journalingDesc = document.getElementById('editJournalingDesc').value.trim();
+            day.pieIzquierda = document.getElementById('editPieIzquierda').value.trim();
+            day.pieDerecha = document.getElementById('editPieDerecha').value.trim();
+
+            day.questions = [];
+            const qInputs = document.querySelectorAll('[id^="q_input_"]');
+            qInputs.forEach(input => {
+                if(input.value.trim()) day.questions.push(input.value.trim());
+            });
+
+            appData.muroTitulo = document.getElementById('editMuroTitulo').value.trim();
+            appData.muroSubtitulo = document.getElementById('editMuroSubtitulo').value.trim();
+
+            localStorage.setItem('tallerData3Semanas', JSON.stringify(appData));
+            renderDaySelector();
+            loadDayContent(currentActiveDay);
+
+            const url = appData.googleSheetsUrl || googleSheetsUrl;
+            if (url) {
+                try {
+                    await fetch(url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            type: 'saveConfig',
+                            config: appData
+                        })
+                    });
+                    alert('¡Cambios guardados e integrados a la nube de Google Sheets!');
+                } catch(e) {
+                    alert('Cambios guardados localmente.');
+                }
+            } else {
+                alert('¡Cambios guardados localmente!');
+            }
+
+            switchView('participante');
+        }
+
+        async function saveAndSendToSheets() {
+            const day = appData.days[currentActiveDay];
+            const answers = {};
+            day.questions.forEach((q, idx) => {
+                answers[idx] = document.getElementById(`ans_${idx}`).value;
+            });
+            localStorage.setItem(`ans_day_${currentActiveDay}`, JSON.stringify(answers));
+
+            const url = appData.googleSheetsUrl || googleSheetsUrl;
+            if (url) {
+                try {
+                    await fetch(url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            fecha: new Date().toLocaleString(),
+                            devocional: day.nombreDia,
+                            respuestas: answers
+                        })
+                    });
+                    alert('¡Tus respuestas han sido enviadas con éxito!');
+                } catch(e) {
+                    alert('Respuestas guardadas localmente en tu dispositivo.');
+                }
+            } else {
+                alert('¡Respuestas guardadas localmente!');
+            }
+        }
+
+        async function addMuroPost() {
+            const nombre = document.getElementById('muroNombre').value.trim();
+            const mensaje = document.getElementById('muroMensaje').value.trim();
+
+            if (!nombre || !mensaje) {
+                alert("Por favor completa tu nombre y el mensaje.");
+                return;
+            }
+
+            const newPost = { nombre, mensaje, fecha: "Ahora mismo" };
+            appData.muroPosts.unshift(newPost);
+            renderMuroPosts();
+
+            document.getElementById('muroNombre').value = '';
+            document.getElementById('muroMensaje').value = '';
+
+            const url = appData.googleSheetsUrl || googleSheetsUrl;
+            if (url) {
+                try {
+                    await fetch(url, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            type: 'addMuro',
+                            nombre: nombre,
+                            mensaje: mensaje
+                        })
+                    });
+                } catch(e) {
+                    console.log("No se pudo sincronizar el muro.");
+                }
+            }
+        }
+
+        function renderMuroPosts() {
+            const container = document.getElementById('muroPostsContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            if (appData.muroPosts.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-500 text-sm col-span-2">Aún no hay publicaciones en el muro. ¡Sé la primera en escribir!</p>`;
+                return;
+            }
+
+            appData.muroPosts.forEach(post => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-4 rounded-xl border border-[#EAE1D7] shadow-sm text-left space-y-1";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-sm text-[#8C3A1D]">${post.nombre}</h4>
+                        <span class="text-[10px] text-gray-400">${post.fecha || ''}</span>
+                    </div>
+                    <p class="text-xs text-[#3D2D27] leading-relaxed">${post.mensaje}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function downloadAnswers() {
+            const day = appData.days[currentActiveDay];
+            const savedAns = JSON.parse(localStorage.getItem(`ans_day_${currentActiveDay}`)) || {};
+
+            let content = `DEVOCIONAL: ${day.nombreDia}\nFECHA: ${day.fecha}\n\n`;
+            day.questions.forEach((q, idx) => {
+                content += `${idx + 1}. ${q}\nRESPUESTA: ${savedAns[idx] || 'Sin respuesta'}\n\n`;
+            });
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${day.nombreDia}_Respuestas.txt`;
+            a.click();
+        }
+
+        function switchView(view) {
+            document.getElementById('viewParticipante').classList.add('hidden');
+            document.getElementById('viewMuro').classList.add('hidden');
+            document.getElementById('viewAdmin').classList.add('hidden');
+
+            if (view === 'participante') document.getElementById('viewParticipante').classList.remove('hidden');
+            if (view === 'muro') {
+                document.getElementById('viewMuro').classList.remove('hidden');
+                fetchDataFromSheets();
+            }
+            if (view === 'admin') {
+                document.getElementById('viewAdmin').classList.remove('hidden');
+                populateAdminForm();
+            }
+        }
+
+        function solicitarAccesoAdmin() {
+            let password = prompt("Ingresa la contraseña de administradora:");
+            if (password === CLAVE_ADMIN) {
+                switchView('admin');
+            } else if (password !== null) {
+                alert("Contraseña incorrecta.");
+            }
+        }
+    </script>
+</body>
+</html>

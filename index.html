@@ -380,7 +380,7 @@
         const googleSheetsUrl = "https://script.google.com/macros/s/AKfycbxr8iny2uVz-QSrN4LnMSVBjjHwt7l3Odi--QduYBnnNXDKUgPxr7kncgEf4zc8ESuLtg/exec";
         const CLAVE_ADMIN = "1234";
 
-        let appData = {
+        let defaultAppData = {
             googleSheetsUrl: googleSheetsUrl,
             logoSrc: "https://i.pinimg.com/736x/87/42/bb/8742bbf06294d1f2b5a153bd28b758da.jpg",
             headerTitulo: "REUNIÓN DE MUJERES",
@@ -421,36 +421,44 @@
             ]
         };
 
+        // CARGAR INMEDIATAMENTE LO QUE HAYA GUARDADO EN EL CELULAR/PC LOCAL PARA QUE NO SE VEA VIEJO
+        let savedLocalConfig = localStorage.getItem('app_config_cache');
+        let appData = savedLocalConfig ? JSON.parse(savedLocalConfig) : defaultAppData;
+
         let currentActiveDay = 0;
 
+        // Ejecutar render de inmediato con lo que haya en memoria
         document.addEventListener('DOMContentLoaded', () => {
-            fetchDataFromSheets();
+            initAppLocally();
+            fetchDataFromSheetsSilently();
         });
 
-        async function fetchDataFromSheets() {
+        async function fetchDataFromSheetsSilently() {
             const url = appData.googleSheetsUrl || googleSheetsUrl;
-            if (!url) {
-                initAppLocally();
-                return;
-            }
+            if (!url) return;
             try {
                 const res = await fetch(url);
                 const data = await res.json();
                 if (data.config && Object.keys(data.config).length > 0) {
                     appData = Object.assign(appData, data.config);
+                    localStorage.setItem('app_config_cache', JSON.stringify(appData));
                 }
                 if (data.muro) {
                     appData.muroPosts = data.muro.reverse();
                 }
+                // Refrescar pantalla de forma silenciosa con lo último de la nube
+                initAppLocally();
             } catch (e) {
-                console.log("Cargando datos locales por respaldo.");
+                console.log("Usando caché local sin conexión.");
             }
-            initAppLocally();
         }
 
         function initAppLocally() {
             renderDaySelector();
-            loadDayContent(0);
+            // Mantener el día seleccionado actual si existe
+            if(currentActiveDay >= appData.days.length) currentActiveDay = 0;
+            document.getElementById('daySelector').value = currentActiveDay;
+            loadDayContent(currentActiveDay);
             renderMuroPosts();
         }
 
@@ -683,6 +691,9 @@
             appData.muroTitulo = document.getElementById('editMuroTitulo').value.trim();
             appData.muroSubtitulo = document.getElementById('editMuroSubtitulo').value.trim();
 
+            // Guardar inmediatamente en el dispositivo local para que al recargar no se pierda ni demore
+            localStorage.setItem('app_config_cache', JSON.stringify(appData));
+
             renderDaySelector();
             loadDayContent(currentActiveDay);
 
@@ -698,9 +709,9 @@
                             config: appData
                         })
                     });
-                    alert('¡Cambios guardados y sincronizados con la nube de Google Sheets para todas!');
+                    alert('¡Cambios guardados localmente y sincronizados con la nube de Google Sheets!');
                 } catch(e) {
-                    alert('Error al sincronizar con la nube.');
+                    alert('Cambios guardados en tu dispositivo.');
                 }
             }
 
@@ -796,7 +807,7 @@
         function downloadAnswers() {
             const day = appData.days[currentActiveDay];
             const savedAns = {};
-            day.questions.forEach((q, idx) => {
+            day.questions.questions.forEach((q, idx) => {
                 const el = document.getElementById(`ans_${idx}`);
                 if(el) savedAns[idx] = el.value;
             });
@@ -806,7 +817,7 @@
                 content += `${idx + 1}. ${q}\nRESPUESTA: ${savedAns[idx] || 'Sin respuesta'}\n\n`;
             });
 
-            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8'	});
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
             a.download = `${day.nombreDia}_Respuestas.txt`;
@@ -821,7 +832,7 @@
             if (view === 'participante') document.getElementById('viewParticipante').classList.remove('hidden');
             if (view === 'muro') {
                 document.getElementById('viewMuro').classList.remove('hidden');
-                fetchDataFromSheets();
+                fetchDataFromSheetsSilently();
             }
             if (view === 'admin') {
                 document.getElementById('viewAdmin').classList.remove('hidden');

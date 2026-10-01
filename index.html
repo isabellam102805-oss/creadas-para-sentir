@@ -83,7 +83,7 @@
             <div class="page-container rounded-2xl p-6 sm:p-10 text-center relative">
                 <div class="max-w-2xl mx-auto">
                     
-                    <p id="dispUbicacion" class="text-xs font-bold text-[#8C3A1D] uppercase tracking-widest mb-1">CALLE ZIGIA 28, MADRID</p>
+                    <p id="dispUbicacion" class="text-xs font-bold text-[#8C3A1D] uppercase tracking-widest mb-1">TALLER ONLINE</p>
                     <p id="dispFecha" class="text-xs font-semibold text-gray-500 mb-2">Lunes, 05 de Octubre</p>
 
                     <h2 id="dispTitulo" class="font-groovy text-3xl sm:text-5xl text-[#8C3A1D] my-2">REUNIÓN DE MUJERES</h2>
@@ -206,9 +206,9 @@
 
                 <!-- ENCABEZADO Y TÍTULOS GENERALES EDITABLES -->
                 <div class="bg-[#F7F3EE] p-4 rounded-xl border border-[#EAE1D7] space-y-3">
-                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-heading mr-1"></i> 1. Títulos Generales de la Barra Superior y Hoja</h3>
+                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-heading mr-1"></i> 1. Títulos Generales y Logo</h3>
                     <div>
-                        <label class="block text-xs font-bold mb-1">URL de la Imagen del Logo (Pinterest/Web):</label>
+                        <label class="block text-xs font-bold mb-1">URL de la Imagen del Logo:</label>
                         <input type="text" id="editLogoUrl" class="w-full p-2 text-xs border rounded-lg" placeholder="https://i.pinimg.com/...">
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -256,33 +256,44 @@
 
                 <!-- EDITOR DEL DEVOCIONAL SELECCIONADO -->
                 <div class="bg-[#F7F3EE] p-4 rounded-xl border border-[#EAE1D7] space-y-4">
-                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-pen-to-square mr-1"></i> 3. Editar Devocional Actual</h3>
+                    <h3 class="font-bold text-sm text-[#8C3A1D]"><i class="fa-solid fa-pen-to-square mr-1"></i> 3. Editar Encabezado y Contenido del Devocional</h3>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-bold mb-1">Nombre / Título del Día (ej: Día 1: Creadas para sentir):</label>
-                            <input type="text" id="editNombreDia" class="w-full p-2 text-xs border rounded-lg">
+                            <label class="block text-xs font-bold mb-1">1. Modalidad / Ubicación (Superior):</label>
+                            <input type="text" id="editUbicacion" class="w-full p-2 text-xs border rounded-lg" placeholder="TALLER ONLINE">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold mb-1">Ubicación / Dirección Superior:</label>
-                            <input type="text" id="editUbicacion" class="w-full p-2 text-xs border rounded-lg">
+                            <label class="block text-xs font-bold mb-1">2. Fecha del Devocional:</label>
+                            <input type="text" id="editFecha" class="w-full p-2 text-xs border rounded-lg" placeholder="Lunes, 05 de Octubre">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs font-bold mb-1">Fecha del Devocional:</label>
-                            <input type="text" id="editFecha" class="w-full p-2 text-xs border rounded-lg">
+                            <label class="block text-xs font-bold mb-1">3. Título Grande de la Hoja (ej. REUNIÓN DE MUJERES):</label>
+                            <input type="text" id="editTituloDevocional" class="w-full p-2 text-xs border rounded-lg" placeholder="REUNIÓN DE MUJERES">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold mb-1">Título de Audio / Canción:</label>
-                            <input type="text" id="editAudioTitulo" class="w-full p-2 text-xs border rounded-lg">
+                            <label class="block text-xs font-bold mb-1">4. Subtítulo en Cursiva (ej. Creadas para sentir):</label>
+                            <input type="text" id="editSubtituloDevocional" class="w-full p-2 text-xs border rounded-lg" placeholder="Creadas para sentir">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold mb-1">Enlace de Audio / YouTube / Spotify / SoundCloud:</label>
-                        <input type="text" id="editAudioLink" class="w-full p-2 text-xs border rounded-lg" placeholder="https://youtube.com/...">
+                        <label class="block text-xs font-bold mb-1">5. Texto de la Cápsula / Botón Central del Día:</label>
+                        <input type="text" id="editNombreDia" class="w-full p-2 text-xs border rounded-lg" placeholder="Día 1: Creadas para sentir">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Título de Audio / Canción:</label>
+                            <input type="text" id="editAudioTitulo" class="w-full p-2 text-xs border rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1">Enlace de Audio / YouTube:</label>
+                            <input type="text" id="editAudioLink" class="w-full p-2 text-xs border rounded-lg" placeholder="https://youtube.com/...">
+                        </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -369,7 +380,7 @@
         const googleSheetsUrl = "https://script.google.com/macros/s/AKfycbxr8iny2uVz-QSrN4LnMSVBjjHwt7l3Odi--QduYBnnNXDKUgPxr7kncgEf4zc8ESuLtg/exec";
         const CLAVE_ADMIN = "1234";
 
-        let appData = JSON.parse(localStorage.getItem('tallerData3Semanas')) || {
+        let appData = {
             googleSheetsUrl: googleSheetsUrl,
             logoSrc: "https://i.pinimg.com/736x/87/42/bb/8742bbf06294d1f2b5a153bd28b758da.jpg",
             headerTitulo: "REUNIÓN DE MUJERES",
@@ -388,7 +399,7 @@
                 {
                     nombreDia: "Día 1: Creadas para sentir",
                     fecha: "Lunes, 05 de Octubre",
-                    ubicacion: "CALLE ZIGIA 28, MADRID",
+                    ubicacion: "TALLER ONLINE",
                     titulo: "REUNIÓN DE MUJERES",
                     subtitulo: "Creadas para sentir",
                     audioTitulo: "Alabanza del Día 1",
@@ -413,29 +424,34 @@
         let currentActiveDay = 0;
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderDaySelector();
-            loadDayContent(0);
             fetchDataFromSheets();
         });
 
         async function fetchDataFromSheets() {
             const url = appData.googleSheetsUrl || googleSheetsUrl;
-            if (!url) return;
+            if (!url) {
+                initAppLocally();
+                return;
+            }
             try {
                 const res = await fetch(url);
                 const data = await res.json();
                 if (data.config && Object.keys(data.config).length > 0) {
                     appData = Object.assign(appData, data.config);
-                    renderDaySelector();
-                    loadDayContent(currentActiveDay);
                 }
                 if (data.muro) {
                     appData.muroPosts = data.muro.reverse();
-                    renderMuroPosts();
                 }
             } catch (e) {
-                console.log("Cargando datos locales.");
+                console.log("Cargando datos locales por respaldo.");
             }
+            initAppLocally();
+        }
+
+        function initAppLocally() {
+            renderDaySelector();
+            loadDayContent(0);
+            renderMuroPosts();
         }
 
         function renderDaySelector() {
@@ -464,8 +480,12 @@
 
             document.getElementById('headerTitulo').textContent = headerT;
             document.getElementById('headerSubtitulo').textContent = headerS;
+
+            document.getElementById('dispUbicacion').textContent = data.ubicacion || "TALLER ONLINE";
+            document.getElementById('dispFecha').textContent = data.fecha || "Lunes, 05 de Octubre";
             document.getElementById('dispTitulo').textContent = data.titulo || headerT;
             document.getElementById('dispSubtitulo').textContent = data.subtitulo || headerS;
+            document.getElementById('dispNombreDia').textContent = data.nombreDia || "Día 1: Creadas para sentir";
 
             document.getElementById('muroTituloDisp').textContent = appData.muroTitulo || "Muro de Bendiciones";
             document.getElementById('muroSubtituloDisp').textContent = appData.muroSubtitulo || "Deja un mensaje o petición para el grupo de mujeres";
@@ -477,10 +497,6 @@
 
             document.getElementById('btnGuardarResp').innerHTML = `<i class="fa-solid fa-paper-plane"></i> ${appData.btnGuardarText || 'Enviar Mis Respuestas'}`;
             document.getElementById('btnDescargarResp').innerHTML = `<i class="fa-solid fa-download"></i> ${appData.btnDescargarText || 'Descargar Copia'}`;
-
-            document.getElementById('dispNombreDia').textContent = data.nombreDia;
-            document.getElementById('dispFecha').textContent = data.fecha;
-            document.getElementById('dispUbicacion').textContent = data.ubicacion || "CALLE ZIGIA 28, MADRID";
 
             document.getElementById('dispAudioTitulo').textContent = data.audioTitulo;
             document.getElementById('dispAudioLink').href = data.audioLink || "#";
@@ -537,9 +553,12 @@
             document.getElementById('editBtnGuardar').value = appData.btnGuardarText || "Enviar Mis Respuestas";
             document.getElementById('editBtnDescargar').value = appData.btnDescargarText || "Descargar Copia";
 
-            document.getElementById('editNombreDia').value = day.nombreDia || "";
-            document.getElementById('editUbicacion').value = day.ubicacion || "";
-            document.getElementById('editFecha').value = day.fecha || "";
+            document.getElementById('editUbicacion').value = day.ubicacion || "TALLER ONLINE";
+            document.getElementById('editFecha').value = day.fecha || "Lunes, 05 de Octubre";
+            document.getElementById('editTituloDevocional').value = day.titulo || appData.headerTitulo || "REUNIÓN DE MUJERES";
+            document.getElementById('editSubtituloDevocional').value = day.subtitulo || appData.headerSubtitulo || "Creadas para sentir";
+            document.getElementById('editNombreDia').value = day.nombreDia || "Día 1: Creadas para sentir";
+
             document.getElementById('editAudioTitulo').value = day.audioTitulo || "";
             document.getElementById('editAudioLink').value = day.audioLink || "";
             document.getElementById('editVersiculo').value = day.versiculo || "";
@@ -597,7 +616,7 @@
             const newDayObj = {
                 nombreDia: `Día ${newIndex}: Nuevo Devocional`,
                 fecha: "Fecha pendiente",
-                ubicacion: "CALLE ZIGIA 28, MADRID",
+                ubicacion: "TALLER ONLINE",
                 titulo: appData.headerTitulo || "REUNIÓN DE MUJERES",
                 subtitulo: appData.headerSubtitulo || "Creadas para sentir",
                 audioTitulo: `Alabanza del Día ${newIndex}`,
@@ -636,9 +655,12 @@
             appData.btnGuardarText = document.getElementById('editBtnGuardar').value.trim();
             appData.btnDescargarText = document.getElementById('editBtnDescargar').value.trim();
 
-            day.nombreDia = document.getElementById('editNombreDia').value.trim();
             day.ubicacion = document.getElementById('editUbicacion').value.trim();
             day.fecha = document.getElementById('editFecha').value.trim();
+            day.titulo = document.getElementById('editTituloDevocional').value.trim();
+            day.subtitulo = document.getElementById('editSubtituloDevocional').value.trim();
+            day.nombreDia = document.getElementById('editNombreDia').value.trim();
+
             day.audioTitulo = document.getElementById('editAudioTitulo').value.trim();
             day.audioLink = document.getElementById('editAudioLink').value.trim();
             day.versiculo = document.getElementById('editVersiculo').value.trim();
@@ -661,7 +683,6 @@
             appData.muroTitulo = document.getElementById('editMuroTitulo').value.trim();
             appData.muroSubtitulo = document.getElementById('editMuroSubtitulo').value.trim();
 
-            localStorage.setItem('tallerData3Semanas', JSON.stringify(appData));
             renderDaySelector();
             loadDayContent(currentActiveDay);
 
@@ -677,12 +698,10 @@
                             config: appData
                         })
                     });
-                    alert('¡Cambios guardados e integrados a la nube de Google Sheets!');
+                    alert('¡Cambios guardados y sincronizados con la nube de Google Sheets para todas!');
                 } catch(e) {
-                    alert('Cambios guardados localmente.');
+                    alert('Error al sincronizar con la nube.');
                 }
-            } else {
-                alert('¡Cambios guardados localmente!');
             }
 
             switchView('participante');
@@ -694,7 +713,6 @@
             day.questions.forEach((q, idx) => {
                 answers[idx] = document.getElementById(`ans_${idx}`).value;
             });
-            localStorage.setItem(`ans_day_${currentActiveDay}`, JSON.stringify(answers));
 
             const url = appData.googleSheetsUrl || googleSheetsUrl;
             if (url) {
@@ -711,10 +729,8 @@
                     });
                     alert('¡Tus respuestas han sido enviadas con éxito!');
                 } catch(e) {
-                    alert('Respuestas guardadas localmente en tu dispositivo.');
+                    alert('Error al enviar respuestas.');
                 }
-            } else {
-                alert('¡Respuestas guardadas localmente!');
             }
         }
 
@@ -779,7 +795,11 @@
 
         function downloadAnswers() {
             const day = appData.days[currentActiveDay];
-            const savedAns = JSON.parse(localStorage.getItem(`ans_day_${currentActiveDay}`)) || {};
+            const savedAns = {};
+            day.questions.forEach((q, idx) => {
+                const el = document.getElementById(`ans_${idx}`);
+                if(el) savedAns[idx] = el.value;
+            });
 
             let content = `DEVOCIONAL: ${day.nombreDia}\nFECHA: ${day.fecha}\n\n`;
             day.questions.forEach((q, idx) => {
